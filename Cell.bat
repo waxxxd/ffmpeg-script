@@ -15,12 +15,12 @@ REM
 SET VIDEO_CODEC264=-c:v libx264
 IF DEFINED VIDEO_CODEC264 (
 	REM ultrafast superfast veryfast faster fast medium slow slower veryslow placebo DEFAULT=medium
-	SET PRESET=-preset faster
+	SET PRESET=-preset slow
 	
 	REM -tune film animation grain stillimage psnr ssim fastdecode zerolatency
 	
 	REM CRF=0-51, SANE RANGE=18-28, DEFAULT=23
-	SET CRF=-crf 25
+	SET CRF=-crf 28
 	
 	SET "VIDEO=!VIDEO_CODEC264! !PRESET! !CRF!"
 )
@@ -37,22 +37,25 @@ IF DEFINED VIDEO_CODEC265 (
 	
 )
 
-REM 
-SET SCALE=scale=640:-2
+REM
+SET SCALE=scale="640:trunc(ow/a/2)*2"
 
-REM 		   eq=gamma:contrast:brightness:saturation:rg:gg:bg:weight
-REM SET COLOUR=eq=contrast=1.2:brightness=0.2:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
+REM
+SET COLOUR=eq=contrast=1.25:brightness=0.2:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
 
 IF DEFINED SCALE (
-	SET VIDEO_FILTER=-vf %SCALE% %COLOUR%
+	IF DEFINED COLOUR (
+		SET VIDEO_FILTER=-vf %SCALE%,%COLOUR%
+	) ELSE (
+		SET VIDEO_FILTER=-vf %SCALE%
+	)
+) ELSE (
+	IF DEFINED COLOUR (
+		SET VIDEO_FILTER=-vf %COLOUR%
+	)
 )
 
-IF DEFINED COLOUR (
-	SET VIDEO_FILTER=-vf %SCALE% %COLOUR%
-)
-
-REM 
-SET AUDIO=-c:a copy
+REM SET AUDIO=-c:a copy
 REM SET AUDIO -c:a aac -b:a 128k 
 REM SET AUDIO=-c:a mp3 -b:a 128k
 REM SET AUDIO=-c:a libvorbis -q 4.0
@@ -61,10 +64,11 @@ REM SET TRACK=-map 0:v -map 0:a:0
 REM SET TRACK= -map 0:a:0
 REM SET TRACK= -map 0:0
 
-REM SET START=-ss 00:00:00
-REM SET DURATION=-t 00:00:30
+REM SET START=-ss 00:22:00
+REM SET DURATION=-t 00:00:01
 
-REM SET AUDIO_FILTER=-af "volume=1.20"
+REM 
+SET AUDIO_FILTER=-af "volume=1.20"
 
 FOR %%A IN (%*) DO (
 	mkdir "%LOCATION%"
@@ -74,4 +78,6 @@ FOR %%A IN (%*) DO (
 	
 )
 
+REM shutdown -h
+REM 
 pause
