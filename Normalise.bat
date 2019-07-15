@@ -38,8 +38,7 @@ IF DEFINED VIDEO_CODEC265 (
 
 REM SET SCALE=scale="640:trunc(ow/a/2)*2"
 
-REM 
-SET COLOUR=eq=contrast=1.15:brightness=0.1:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
+REM SET COLOUR=eq=contrast=1.15:brightness=0.1:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
 
 IF DEFINED SCALE (
 	IF DEFINED COLOUR (
