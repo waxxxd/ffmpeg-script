@@ -1,0 +1,33 @@
+@ECHO OFF
+SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
+
+REM
+SET LOCATION=%%~dpA_
+SET FILENAME=%%~nA.mp3
+
+SET TITLE=-metadata title="%%~nA"
+
+REM 
+SET AUDIO= -c:a aac -b:a 96k 
+REM SET AUDIO=-c:a mp3 -b:a 128k
+REM SET AUDIO=-c:a libvorbis -q 4.0
+
+REM SET TRACK=-map 0:v -map 0:a:0
+REM 
+SET TRACK= -map 0:a:0
+REM SET TRACK= -map 0:1
+
+REM SET START=-ss 00:00:14
+REM SET DURATION=-t 00:02:00
+
+REM SET AUDIO_FILTER=-af "volume=1.20"
+
+FOR %%A IN (%*) DO (
+	mkdir "%LOCATION%"
+
+	echo ffmpeg -i %%A %TITLE% -y %AUDIO% %TRACK% %START% %DURATION% "%LOCATION%\%FILENAME%"
+	ffmpeg -i %%A %TITLE% -y %AUDIO% %TRACK% %START% %DURATION% "%LOCATION%\%FILENAME%"
+	
+)
+
+pause

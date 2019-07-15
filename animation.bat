@@ -1,6 +1,8 @@
 @ECHO OFF
 SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
+PATH=%PATH%;%~dp0\..\bin;
+
 SET LOCATION=%%~dpA_
 REM SET LOCATION=%%~dpA
 SET FILENAME=%%~nA.mp4
@@ -13,13 +15,13 @@ REM
 SET VIDEO_CODEC264=-c:v libx264
 IF DEFINED VIDEO_CODEC264 (
 	REM ultrafast superfast veryfast faster fast medium slow slower veryslow placebo DEFAULT=medium
-	SET PRESET=-preset medium 
+	SET PRESET=-preset medium -tune animation
 	
 	REM animation film grain stillimage psnr ssim fastdecode zerolatency
 	
 	
 	REM CRF=0-51, SANE RANGE=18-28, DEFAULT=23
-	SET CRF=-crf 28
+	SET CRF=-crf 23
 	
 	SET "VIDEO=!VIDEO_CODEC264! !PRESET! !CRF!"
 )
@@ -36,11 +38,10 @@ IF DEFINED VIDEO_CODEC265 (
 	
 )
 
-REM 
-SET SCALE=scale="640:trunc(ow/a/2)*2"
-
 REM
-SET COLOUR=eq=contrast=1.2:brightness=0.15:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
+SET SCALE=scale="720:trunc(ow/a/2)*2"
+
+REM SET COLOUR=eq=contrast=1.2:brightness=0.15:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
 
 IF DEFINED SCALE (
 	IF DEFINED COLOUR (
@@ -70,7 +71,7 @@ REM SET DURATION=-t 00:00:10
 REM 
 SET AUDIO_FILTER=-af "volume=1.20"
 
-REM 
+REM
 SET A_C=-ac 1
 
 FOR %%A IN (%*) DO (

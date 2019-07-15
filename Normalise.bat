@@ -9,8 +9,7 @@ SET TITLE=-metadata title="%%~nA"
 
 REM SET VIDEO=-c:v copy
 
-REM 
-SET VIDEO_CODEC264=-c:v libx264
+REM SET VIDEO_CODEC264=-c:v libx264
 IF DEFINED VIDEO_CODEC264 (
 	REM ultrafast superfast veryfast faster fast medium slow slower veryslow placebo DEFAULT=medium
 	SET PRESET=-preset medium 
@@ -24,7 +23,8 @@ IF DEFINED VIDEO_CODEC264 (
 	SET "VIDEO=!VIDEO_CODEC264! !PRESET! !CRF! !TUNE!"
 )
 
-REM SET VIDEO_CODEC265=-vcodec libx265
+REM 
+SET VIDEO_CODEC265=-vcodec libx265
 IF DEFINED VIDEO_CODEC265 (
 	REM ultrafast superfast veryfast faster fast medium slow slower veryslow placebo DEFAULT=medium
 	SET PRESET=-preset medium
@@ -36,10 +36,10 @@ IF DEFINED VIDEO_CODEC265 (
 	
 )
 
-REM 
-SET SCALE=scale="640:trunc(ow/a/2)*2"
+REM SET SCALE=scale="640:trunc(ow/a/2)*2"
 
-REM SET COLOUR=eq=contrast=1.15:brightness=0.1:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
+REM 
+SET COLOUR=eq=contrast=1.15:brightness=0.1:saturation=1:gamma=1:gamma_r=1:gamma_g=1:gamma_b=1:gamma_weight=1
 
 IF DEFINED SCALE (
 	IF DEFINED COLOUR (
@@ -56,8 +56,7 @@ IF DEFINED SCALE (
 REM 
 SET AUDIO=-c:a copy
 REM SET AUDIO= -c:a aac -b:a 128k 
-REM 
-SET AUDIO=-c:a mp3 -b:a 128k
+REM SET AUDIO=-c:a mp3 -b:a 128k
 REM SET AUDIO=-c:a libvorbis -q 4.0
 
 REM SET TRACK=-map 0:v -map 0:a:0
